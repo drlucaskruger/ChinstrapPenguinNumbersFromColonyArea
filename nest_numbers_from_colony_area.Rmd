@@ -31,7 +31,7 @@ cpm<-ddply(cp,("OBJECTID"),summarise,
            Latitude=mean(Y))
 
 # Set the number of iterations for the loop
-num_iterations <- 5000
+num_iterations <- 3000
 
 # Create an empty list to store predicted counts for each iteration
 predicted_counts_list <- vector("list", length = num_iterations)
