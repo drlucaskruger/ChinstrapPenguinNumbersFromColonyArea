@@ -15,7 +15,7 @@ cpm<-ddply(cp,("OBJECTID"),summarise,
            Latitude=mean(Y))
 
 # Set the number of iterations for the loop
-num_iterations <- 250
+num_iterations <- 1000
 
 # Create an empty list to store predicted counts for each iteration
 predicted_counts_list <- vector("list", length = num_iterations)
@@ -71,14 +71,14 @@ summary(correlation_df$Correlation)
 correlation_df$R<-ifelse(correlation_df$Correlation<0,0,correlation_df$Correlation)
 
 
-(ggplot(correlation_df,aes(distance*111,R))+geom_point()+
+(ggplot(correlation_df,aes(distance*111,R))+geom_point(alpha=0.2)+
   ggtitle(label="a.Mean distance between sampled groups")+xlab("Kilometers")+
     ylab("Correlation coefficient (R)")+
     stat_smooth(method="glm",
       method.args=list(family="binomial"))+
   theme_bw())|
 
-(ggplot(correlation_df,aes(sd_area,R))+geom_point()+
+(ggplot(correlation_df,aes(sd_area,R))+geom_point(alpha=0.2)+
     ggtitle(label="b.Groups' area standard deviation")+xlab("Square meters")+
    ylab("Correlation coefficient (R)")+
    geom_smooth(method="glm",
@@ -113,15 +113,15 @@ col.obs<-sum(cpm$nests)
 
 
 ggplot(df,aes(nests,mean))+
-  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd))+
-  geom_point()+geom_smooth()+theme_bw()+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),alpha=0.5)+
+  geom_point(alpha=0.5)+geom_smooth()+theme_bw()+
   xlab("Observed number of nests")+
   ylab("Predicted number of nests")+xlim(0,1000)+
   ggtitle(label="a. Nests on breeding groups")+
 
 ggplot(rmc,aes(colsize))+geom_histogram(aes(y =..density..), 
                                         colour = "black", 
-                                        fill = "grey50")+
+                                        fill = "grey50",alpha=0.5)+
   stat_function(fun = dnorm, 
                 args = list(mean = mean(rmc$colsize), sd = sd(rmc$colsize)),
                 colour="blue",linewidth=1)+
